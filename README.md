@@ -27,8 +27,9 @@ Links to Cruellete's currently available pages (subject to change):
 https://th4uu.itch.io/cruelette
 
 Find us at (subject to change): 
-Discord : Gugena, X, CaptainCaramel. 
-Discord Server: X. Email : LashaG.Gugenishvili@Gmail.com, X, Y.
+Discord : Gugena, Tolchok, CaptainCaramel. 
+Discord Server: X. 
+Email : LashaG.Gugenishvili@gmail.com, iraklimdinaradze22@gmail.com, litesonicgreengrump@gmail.com.
 Itch: Gugena, Tolchok, Th4uu. 
 GameJolt: Gugena, X, Y. 
 Youtube : CaptainCaramel.
