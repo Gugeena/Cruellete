@@ -40,6 +40,14 @@ public class FunctionLever : MonoBehaviour
     public bool ThawPanelOn;
     public bool AintWorkingBoolean;
 
+    [Header("Lever")]
+    public Sprite[] leverSprites;
+    public Slider leverSlider;
+    public Image leverRenderer;
+
+    public Animator slotsAnim;
+    public AudioSource jackpotSound;
+
     void Start()
     {
         activeScene = SceneManager.GetActiveScene();
@@ -187,6 +195,37 @@ public class FunctionLever : MonoBehaviour
         }
     }
 
+    public void leverChange()
+    {
+        leverRenderer.sprite = leverSprites[(int)leverSlider.value];
+    }
+
+    public void leverRelease()
+    {
+        if (leverSlider.value <= 3)
+        {
+            StartCoroutine(leverPullUp());
+        }
+        else
+        {
+            leverSlider.interactable = false;
+            StartCoroutine(leverPullUp());
+            if (activeScene.name == "MainMenu") slotsAnim.Play("slotSpinStart");
+            StartCoroutine(WaitAndLoadScene());
+            am.playAudio(leverSound);
+        }
+    }
+
+    public IEnumerator leverPullUp()
+    {
+        while (leverSlider.value > 0)
+        {
+            leverSlider.value--;
+            leverRenderer.sprite = leverSprites[(int)leverSlider.value];
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
     private IEnumerator exitSettings()
     {
         settingsOn = false;
@@ -315,10 +354,12 @@ public class FunctionLever : MonoBehaviour
 
     IEnumerator WaitAndLoadScene()
     {
-        yield return new WaitForSeconds(leverAnim.GetCurrentAnimatorStateInfo(0).length);
+        yield return new WaitForSeconds(1.5f);
+        am.playAudio(jackpotSound);
+        yield return new WaitForSeconds(0.5f);
         FadeOutAnim.gameObject.SetActive(true);
         FadeOutAnim.GetComponent<Animator>().Play("sceneFadeOut");
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2);
         if (difficultychanged == false)
         {
             SceneManager.LoadScene(2);

@@ -2489,7 +2489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0380fd4bc135a0f48a31b6a2605d79d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tagToKill: MovingPlatform
+  tagToKill: mp
 --- !u!61 &759614672
 BoxCollider2D:
   m_ObjectHideFlags: 0

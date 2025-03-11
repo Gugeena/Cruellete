@@ -465,8 +465,8 @@ RectTransform:
   - {fileID: 597120007}
   - {fileID: 1640260921}
   - {fileID: 378372161}
-  - {fileID: 1348229656}
   - {fileID: 359082876}
+  - {fileID: 1348229656}
   - {fileID: 420539641}
   - {fileID: 1485757718}
   m_Father: {fileID: 0}
@@ -522,6 +522,10 @@ MonoBehaviour:
   AintWorkingPanel: {fileID: 1485757717}
   ThawPanelOn: 0
   AintWorkingBoolean: 0
+  leverSprites: []
+  leverSlider: {fileID: 0}
+  leverRenderer: {fileID: 0}
+  slotsAnim: {fileID: 0}
 --- !u!82 &15388229
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2284,7 +2288,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &378372161
 RectTransform:
   m_ObjectHideFlags: 0

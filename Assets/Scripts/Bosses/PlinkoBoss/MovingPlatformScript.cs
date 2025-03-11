@@ -41,9 +41,26 @@ public class MovingPlatformScript : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (collision.gameObject.CompareTag("Player") && falling)
+
+        if (collision.gameObject.CompareTag("Player") && !isFalling)
         {
-            StartCoroutine(cooldownfall());
+            collision.gameObject.transform.parent = this.transform;
+
+            if (falling)
+            {
+                StartCoroutine(cooldownfall());
+            }
+
+        }
+
+
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            collision.gameObject.transform.parent = null;
         }
     }
 

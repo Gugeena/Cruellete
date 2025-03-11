@@ -75,6 +75,10 @@ public class MovementScript : MonoBehaviour
     string currentSceneName;
 
     [SerializeField] private Boolean IsHeavyAttacking;
+
+    bool onMovePlat;
+    Rigidbody2D platformRB;
+
     void Start()
     {
         activeScene = SceneManager.GetActiveScene();
@@ -158,15 +162,18 @@ public class MovementScript : MonoBehaviour
 
     void handleMovement()
     {
+        float x = Input.GetAxisRaw("Horizontal");
+        if (!isDashing && !onMovePlat) rb.velocity = new Vector2(x * speed, rb.velocity.y);
+        else if (onMovePlat && !isDashing)
+        {
+            rb.velocity = new Vector2(x * speed + platformRB.velocity.x, rb.velocity.y);
+        }
+
         if (IsHeavyAttacking && isGrounded)
         {
             rb.velocity = Vector3.zero;
             return;
         }
-
-        //Horizontal
-        float x = Input.GetAxisRaw("Horizontal");
-        if(!isDashing)rb.velocity = new Vector2(x * speed, rb.velocity.y);
 
         if (x != 0) anim.SetInteger("state", 1);
         else anim.SetInteger("state", 0);
@@ -431,6 +438,12 @@ public class MovementScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag("mp"))
+        {
+            onMovePlat = true;
+            platformRB = collision.gameObject.GetComponent<Rigidbody2D>();
+        }
+
         if (collision.gameObject.layer == 3)
         {
             if(jumpStored){Jump(); jumpStored = false;}
@@ -477,6 +490,13 @@ public class MovementScript : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag("mp"))
+        {
+            onMovePlat = false;
+            platformRB = null;
+
+        }
+
         if (collision.gameObject.layer == 3)
         {
             isGrounded = false;
