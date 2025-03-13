@@ -19,6 +19,7 @@ TagManager:
   - Orb
   - ground
   - HeavyAttack
+  - LHAttack
   layers:
   - Default
   - TransparentFX

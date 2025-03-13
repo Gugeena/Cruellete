@@ -438,6 +438,7 @@ public class dBossScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (isAttacking) StartCoroutine(screenShake());
         if (collision.collider.CompareTag("ground")) isJumping = false;
     }
 
@@ -462,6 +463,14 @@ public class dBossScript : MonoBehaviour
         if (collision.CompareTag("dBossFailSafe"))
         {
             StartCoroutine(jumpAttack());
+        }
+        if (collision.CompareTag("LHAttack") && !isInvulnerable)
+        {
+            audioManager.playAudio(sounds[4]);
+            print("HP before damage: " + hp);
+            hp -= 3;
+            print("HP after damage: " + hp);
+            spriteAnim.Play("damage");
         }
     }
 }

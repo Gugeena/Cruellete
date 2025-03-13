@@ -439,5 +439,12 @@ public class SlotBossAI : MonoBehaviour
             hp -= 3;
             anim.Play("Damage");
         }
+
+        if (collision.CompareTag("LHAttack") && !isInvulnerable)
+        {
+            am.playAudio(audioSources[0]);
+            hp -= 2;
+            anim.Play("Damage");
+        }
     }
 }

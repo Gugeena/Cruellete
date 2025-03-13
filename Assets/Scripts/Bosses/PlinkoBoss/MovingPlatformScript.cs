@@ -41,7 +41,6 @@ public class MovingPlatformScript : MonoBehaviour
             Destroy(gameObject);
         }
 
-
         if (collision.gameObject.CompareTag("Player") && !isFalling)
         {
             collision.gameObject.transform.parent = this.transform;
@@ -52,8 +51,6 @@ public class MovingPlatformScript : MonoBehaviour
             }
 
         }
-
-
     }
 
     private void OnCollisionExit2D(Collision2D collision)

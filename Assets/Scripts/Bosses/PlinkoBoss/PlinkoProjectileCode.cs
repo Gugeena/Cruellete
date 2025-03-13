@@ -44,6 +44,11 @@ public class PlinkoProjectileCode : MonoBehaviour
             PlinkoBossScript.hp -= 2 ;
         }
 
+        if (collision.gameObject.CompareTag("LHAttack"))
+        {
+            StartCoroutine(Death());
+            PlinkoBossScript.hp -= 2;
+        }
 
         if (collision.gameObject.CompareTag("damageFloor"))
         {

@@ -389,7 +389,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: LightHeavyAttack
-  m_Speed: 2
+  m_Speed: 1.34
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -3929527018478143361}
@@ -402,7 +402,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 94aa617be52c2924389831f329dcdd7c, type: 2}
+  m_Motion: {fileID: 7400000, guid: e9f91c09ebac41d488398014bf84a8a3, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

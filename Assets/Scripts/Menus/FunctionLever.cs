@@ -52,12 +52,15 @@ public class FunctionLever : MonoBehaviour
     {
         activeScene = SceneManager.GetActiveScene();
 
+        /*
         if (activeScene.name == "EndScreen")
         {
             difficultyChanedIntIndicator = 1;
             save();
         }
-
+        */
+        
+        save();
         load();
 
         leverSound = GetComponent<AudioSource>();
@@ -73,10 +76,14 @@ public class FunctionLever : MonoBehaviour
         }
         else setMusicVolume();
 
+        difficultyChanger.SetActive(true);
+        
+        /*
         if (difficultyChanedIntIndicator == 1)
         {
             difficultyChanger.SetActive(true);
         }
+        */
     }
     
     private void Update()
@@ -151,6 +158,20 @@ public class FunctionLever : MonoBehaviour
 
     public void DifficultyIncrease()
     {
+        if (AintWorkingBoolean == false) StartCoroutine(AintWorker());
+
+        if (DifficultySwitcherI.activeInHierarchy)
+        {
+            DifficultySwitcherI.SetActive(false);
+            DifficultySwitcherO.SetActive(true);
+        }
+        else
+        {
+            DifficultySwitcherI.SetActive(true);
+            DifficultySwitcherO.SetActive(false);
+        }
+        
+        /*
         if (difficultyChanedIntIndicator == 1)
         {
             if (hasPressed == false)
@@ -193,6 +214,7 @@ public class FunctionLever : MonoBehaviour
                 DifficultySwitcherO.SetActive(false);
             }
         }
+        */
     }
 
     public void leverChange()
@@ -360,6 +382,8 @@ public class FunctionLever : MonoBehaviour
         FadeOutAnim.gameObject.SetActive(true);
         FadeOutAnim.GetComponent<Animator>().Play("sceneFadeOut");
         yield return new WaitForSeconds(2);
+        SceneManager.LoadScene(4);
+        /*
         if (difficultychanged == false)
         {
             SceneManager.LoadScene(2);
@@ -368,6 +392,7 @@ public class FunctionLever : MonoBehaviour
         {
             SceneManager.LoadScene(6);
         }
+        */
     }
 
     public IEnumerator AintWorker()

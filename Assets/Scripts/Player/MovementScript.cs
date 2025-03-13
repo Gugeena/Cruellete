@@ -23,7 +23,7 @@ public class MovementScript : MonoBehaviour
     public float dashForce;
 
 
-    public GameObject SideAttackGO, TopAttackGO, BotAttackGO, HeavyAttackGO;
+    public GameObject SideAttackGO, TopAttackGO, BotAttackGO, HeavyAttackGO, LightHeavyAttackGO;
     bool isAttacking, isAttackCooldown;
     public float attackCooldown = 0.22f;
 
@@ -113,6 +113,7 @@ public class MovementScript : MonoBehaviour
 
     void Update()
     {
+        print("grounded: " + isGrounded);
         print("Attack cooldown: " + isAttackCooldown);
         print("IsHeavyAttackign: " + IsHeavyAttacking);
 
@@ -129,7 +130,7 @@ public class MovementScript : MonoBehaviour
             {
                 if (activeScene.name == "BuffedPlinkoBoss" || activeScene.name == "BuffedSlotBoss")
                 {
-                    SceneManager.LoadScene(6);
+                    SceneManager.LoadScene(8);
                 }
                 else
                 {
@@ -162,21 +163,25 @@ public class MovementScript : MonoBehaviour
 
     void handleMovement()
     {
+        //Horizontal
         float x = Input.GetAxisRaw("Horizontal");
+        if (!isDashing) rb.velocity = new Vector2(x * speed, rb.velocity.y);
+
+        if (x != 0) anim.SetInteger("state", 1);
+        else anim.SetInteger("state", 0);
+
         if (!isDashing && !onMovePlat) rb.velocity = new Vector2(x * speed, rb.velocity.y);
         else if (onMovePlat && !isDashing)
         {
             rb.velocity = new Vector2(x * speed + platformRB.velocity.x, rb.velocity.y);
         }
+        
 
         if (IsHeavyAttacking && isGrounded)
         {
             rb.velocity = Vector3.zero;
             return;
         }
-
-        if (x != 0) anim.SetInteger("state", 1);
-        else anim.SetInteger("state", 0);
 
         //Flipping the player and setting the direction variable
         if (x < 0 && transform.localScale.x > 0 && !isDashing) {
@@ -196,6 +201,7 @@ public class MovementScript : MonoBehaviour
             Jump();
         }
 
+        
         //Jump Storing
         else if (Input.GetKeyDown(jumpKey1) && !isGrounded) {
             jumpStored = true;
@@ -234,7 +240,8 @@ public class MovementScript : MonoBehaviour
 
     void handleAttacks()
     {
-        if (!isAttackCooldown && !isAttacking && !isDashing) {
+        if (!isAttackCooldown && !isAttacking && !isDashing) 
+        {
             float y = Input.GetAxisRaw("Vertical");
             if (Input.GetKeyDown(attackKey1) && y > 0)
             {
@@ -254,6 +261,7 @@ public class MovementScript : MonoBehaviour
                 anim.Play("SideSlash");
                 StartCoroutine(slashAttack(SideAttackGO));
             }
+            print("y: " + y);
         }
 
         if(!isAttackCooldown && !isAttacking && !isDashing && !IsHeavyAttacking && !isFatigued)
@@ -263,8 +271,8 @@ public class MovementScript : MonoBehaviour
                 StartCoroutine(HeavyAttack());
             }
         }
-    }
 
+    }
     public IEnumerator HeavyAttack()
     {
         if (!isGrounded)
@@ -298,17 +306,20 @@ public class MovementScript : MonoBehaviour
             //anim.SetBool("isLightHeavyAttacking", true);
             anim.Play("LightHeavyAttack");
 
-            float attackTime = 0.85f;
+            float attackTime = 0.45f;
             float elapsed = 0f;
 
             yield return new WaitForSeconds(attackTime);
             if (!IsHeavyAttacking) yield break;
 
+            //LightHeavyAttackGO.SetActive(true);
             HeavyAttackGO.SetActive(true);
             yield return new WaitForSeconds(0.12f);
 
             //anim.SetBool("isLightHeavyAttacking", false);
+            //LightHeavyAttackGO.SetActive(false);
             HeavyAttackGO.SetActive(false);
+            yield return new WaitForSeconds(0.18f); 
             IsHeavyAttacking = false;
             isAttackCooldown = false;
             print("Heavy Attack Ended");
@@ -360,6 +371,7 @@ public class MovementScript : MonoBehaviour
             {
                 StopCoroutine(HeavyAttack());
                 HeavyAttackGO.SetActive(false);
+                LightHeavyAttackGO.SetActive(false);
                 IsHeavyAttacking = false;
                 isAttackCooldown = false;
                 anim.SetBool("IsHeavyAttacking", false);
@@ -449,6 +461,8 @@ public class MovementScript : MonoBehaviour
             if(jumpStored){Jump(); jumpStored = false;}
             
         }
+
+
         if ((collision.gameObject.layer == 7 || collision.gameObject.layer == 6 || collision.gameObject.CompareTag("Enemy")))
         {
             StartCoroutine(damage());
@@ -490,6 +504,7 @@ public class MovementScript : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
+
         if (collision.gameObject.CompareTag("mp"))
         {
             onMovePlat = false;
@@ -502,6 +517,7 @@ public class MovementScript : MonoBehaviour
             isGrounded = false;
             anim.SetBool("airborne", true);
         }
+
         //if (collision.gameObject.CompareTag("mp"))
         //{
           //  rb.velocity -= platformVelocity; // Remove extra velocity when leaving platform

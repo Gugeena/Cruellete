@@ -53,7 +53,7 @@ public class PauseMenu : MonoBehaviour
     public void BackToMenu()
     {
         Time.timeScale = 1.0f;
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(3);
     }
 
     public void Reload()
@@ -63,6 +63,6 @@ public class PauseMenu : MonoBehaviour
 
     public void BuffedReload()
     {
-        SceneManager.LoadScene(6);
+        SceneManager.LoadScene(8);
     }
 }
