@@ -309,14 +309,14 @@ RectTransform:
   m_GameObject: {fileID: 614360568}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.08379404, y: 0.08379404, z: 0.08379404}
+  m_LocalScale: {x: 0.34910154, y: 0.34910154, z: 0.34910154}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 716251771}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -9}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &614360570
@@ -340,22 +340,31 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 0583fd6aa5570bf4da84fe9b46e84e34, type: 3}
-    m_FontSize: 255
+    m_Font: {fileID: 12800000, guid: 64b1770d5589a3640b6b49de97e44bd3, type: 3}
+    m_FontSize: 35
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
-    m_MaxSize: 255
+    m_MaxSize: 300
     m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
-    m_LineSpacing: 1
-  m_Text: "Cruellete is a fictional game for entertainment only.\n We do not promote
-    or encourage real gambling in any way. \nThere is no real-money gambling or monetary
-    value in this game.\n If you struggle with gambling, please seek professional
-    help.\n\nNo gamblers were harmed during the creation of ts game."
+    m_LineSpacing: 3
+  m_Text: 'CRUELLETE IS A FICTIONAL GAME FOR ENTERTAINMENT ONLY.
+
+    WE DO NOT PROMOTE
+    OR ENCOURAGE REAL GAMBLING IN ANY WAY.
+
+    THERE IS NO REAL-MONEY GAMBLING OR
+    MONETARY VALUE IN THIS GAME.
+
+    IF YOU STRUGGLE WITH GAMBLING, PLEASE SEEK
+    PROFESSIONAL HELP.
+
+
+    NO GAMBLERS WERE HARMED DURING THE CREATION OF TS GAME.'
 --- !u!222 &614360571
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -517,7 +526,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 140.6}
+  m_AnchoredPosition: {x: 0, y: 167.6}
   m_SizeDelta: {x: 170, y: 170}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &902999463
@@ -593,7 +602,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 8.78, y: 4.39}
+  m_AnchoredPosition: {x: 8.78, y: -12}
   m_SizeDelta: {x: 911.81, y: 538.82}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1023341324
@@ -689,7 +698,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -10.2, y: 72.7}
+  m_AnchoredPosition: {x: -10.2, y: 99.7}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1578957761
@@ -713,7 +722,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 0583fd6aa5570bf4da84fe9b46e84e34, type: 3}
+    m_Font: {fileID: 12800000, guid: 64b1770d5589a3640b6b49de97e44bd3, type: 3}
     m_FontSize: 255
     m_FontStyle: 0
     m_BestFit: 0

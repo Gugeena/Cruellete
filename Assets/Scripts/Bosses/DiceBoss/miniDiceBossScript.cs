@@ -42,6 +42,9 @@ public class miniDiceBossScript : MonoBehaviour
 
     public Scene currentScene;
 
+
+    public GameObject Gatekeeper;
+
     void Start()
     {
         currentScene = SceneManager.GetActiveScene();
@@ -54,6 +57,7 @@ public class miniDiceBossScript : MonoBehaviour
         movementScript = player.GetComponent<MovementScript>();
         spriteAnim = transform.GetChild(0).gameObject.GetComponent<Animator>();
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        StartCoroutine(GateKeeper());
     }
 
     // Update is called once per frame
@@ -196,5 +200,11 @@ public class miniDiceBossScript : MonoBehaviour
             hp -= 2;
             spriteAnim.Play("damage");
         }
+    }
+
+    public IEnumerator GateKeeper()
+    {
+        yield return new WaitForSeconds(12.5f);
+        Gatekeeper.SetActive(true);
     }
 }

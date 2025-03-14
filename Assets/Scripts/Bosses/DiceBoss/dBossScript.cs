@@ -274,6 +274,14 @@ public class dBossScript : MonoBehaviour
                 chooseAttack(); return;
             }
             else if (currBuff == 2 && !cloneSpawned) StartCoroutine(doubleDown());
+            else if (currBuff == 2 && cloneSpawned)
+            {
+                if (hp < 45)
+                {
+                    hp += 15;
+                    print("HP increased by buff: " + hp);
+                }
+            }
             else if (currBuff == 3)
             {
                 movementScript.StartCoroutine(movementScript.fatigue());
@@ -297,6 +305,10 @@ public class dBossScript : MonoBehaviour
                 chooseAttack(); return;
             }
             else if (currBuff == 2 && !cloneSpawned) StartCoroutine(doubleDown());
+            else if (currBuff == 2 && cloneSpawned)
+            {
+                hp += 10;
+            }
             else if (currBuff == 3)
             {
                 movementScript.StartCoroutine(movementScript.fatigue());
@@ -304,6 +316,7 @@ public class dBossScript : MonoBehaviour
             }
         }
 
+        /*
         print("HP before handling buffs: " + hp);
         if (currBuff == 0)
         {
@@ -338,6 +351,7 @@ public class dBossScript : MonoBehaviour
             movementScript.StartCoroutine(movementScript.fatigue());
             chooseAttack(); return;
         }
+        */
     }
 
     private IEnumerator jumpAttack()

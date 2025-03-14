@@ -60,7 +60,7 @@ public class FunctionLever : MonoBehaviour
         }
         */
         
-        save();
+        //save();
         load();
 
         leverSound = GetComponent<AudioSource>();
@@ -77,13 +77,15 @@ public class FunctionLever : MonoBehaviour
         else setMusicVolume();
 
         difficultyChanger.SetActive(true);
-        
+
         /*
         if (difficultyChanedIntIndicator == 1)
         {
             difficultyChanger.SetActive(true);
         }
         */
+
+        //print("Loaded hasPressedInt: " + hasPressedInt);
     }
     
     private void Update()
@@ -113,27 +115,27 @@ public class FunctionLever : MonoBehaviour
 
     public void save()
     {
-        PlayerPrefs.SetInt("Difficulty Changed", difficultyChanedIntIndicator);
+        //PlayerPrefs.SetInt("Difficulty Changed", difficultyChanedIntIndicator);
         PlayerPrefs.SetInt("HasPressedInt", hasPressedInt);
         PlayerPrefs.Save();
     }
 
     public void load()
     {
-        difficultyChanedIntIndicator = PlayerPrefs.GetInt("Difficulty Changed");
+        //difficultyChanedIntIndicator = PlayerPrefs.GetInt("Difficulty Changed");
         hasPressedInt = PlayerPrefs.GetInt("HasPressedInt");
 
         if (hasPressedInt == 1)
         {
-            difficultychanged = true;
-            hasPressed = true;
+            //difficultychanged = true;
+            //hasPressed = true;
             DifficultySwitcherI.SetActive(true);
             DifficultySwitcherO.SetActive(false);
         }
         else
         {
-            difficultychanged = false;
-            hasPressed = false;
+            //difficultychanged = false;
+            //hasPressed = false;
             DifficultySwitcherI.SetActive(false);
             DifficultySwitcherO.SetActive(true);
         }
@@ -164,13 +166,33 @@ public class FunctionLever : MonoBehaviour
         {
             DifficultySwitcherI.SetActive(false);
             DifficultySwitcherO.SetActive(true);
+            hasPressedInt = 0;
         }
         else
         {
             DifficultySwitcherI.SetActive(true);
             DifficultySwitcherO.SetActive(false);
+            hasPressedInt = 1;
         }
-        
+        save();
+
+        /*
+        if (DifficultySwitcherI.activeInHierarchy)
+        {
+            DifficultySwitcherI.SetActive(false);
+            DifficultySwitcherO.SetActive(true);
+            hasPressedInt = 1;
+            save();
+        }
+        else
+        {
+            DifficultySwitcherI.SetActive(true);
+            DifficultySwitcherO.SetActive(false);
+            hasPressedInt = 0;
+            save();
+        }
+        */
+
         /*
         if (difficultyChanedIntIndicator == 1)
         {
