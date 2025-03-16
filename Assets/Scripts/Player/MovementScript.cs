@@ -174,7 +174,6 @@ public class MovementScript : MonoBehaviour
         {
             rb.velocity = new Vector2(x * speed + platformRB.velocity.x, rb.velocity.y);
         }
-        
 
         //Flipping the player and setting the direction variable
         if (x < 0 && transform.localScale.x > 0 && !isDashing) {

@@ -210,6 +210,7 @@ public class KeyBindManager : MonoBehaviour
         AdjustInputFieldWidth(inputfieldJump, jumpDisplay);
         AdjustInputFieldWidth(inputfieldHeavy, HeavyDisplay);
 
+        Debug.Log("Key bindings loaded: Dash[" + dashKey + "] Attack[" + attackKey + "] Jump[" + jumpKey + "] + [" + heavyKey + "]");
     }
 
     private bool IsKeyAlreadyAssigned(KeyCode key)
@@ -344,7 +345,7 @@ public class KeyBindManager : MonoBehaviour
             case KeyCode.Help: return "Help";
 
 
-            default: return "???";
+            default: return "?";
         }
     }
 
