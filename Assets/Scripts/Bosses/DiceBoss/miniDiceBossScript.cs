@@ -42,18 +42,19 @@ public class miniDiceBossScript : MonoBehaviour
 
     public Scene currentScene;
 
-
-    public GameObject Gatekeeper;
+    SlotBossAI slotBossAI;
+    public LayerMask bossLayer;
 
     void Start()
     {
         currentScene = SceneManager.GetActiveScene();
         if (currentScene.name == "BuffedSlotMachine") hp = 8;
-        else hp = 15;
+        else hp = 10;
         bc = GetComponent<BoxCollider2D>();
         isAttacking = false;
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.Find("Player");
+        slotBossAI = GameObject.Find("SlotBoss").GetComponent<SlotBossAI>();
         movementScript = player.GetComponent<MovementScript>();
         spriteAnim = transform.GetChild(0).gameObject.GetComponent<Animator>();
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
@@ -69,6 +70,8 @@ public class miniDiceBossScript : MonoBehaviour
         {
             if (!isAttacking) handleMovement();
         }
+
+        if (slotBossAI.hp <= 25) StartCoroutine(deathCRT());
     }
 
     void handleHP()
@@ -205,6 +208,8 @@ public class miniDiceBossScript : MonoBehaviour
     public IEnumerator GateKeeper()
     {
         yield return new WaitForSeconds(12.5f);
-        Gatekeeper.SetActive(true);
+        print("hi");
+        rb.includeLayers = bossLayer;
+        bc.includeLayers = bossLayer;
     }
 }

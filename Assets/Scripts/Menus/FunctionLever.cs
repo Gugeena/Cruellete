@@ -12,6 +12,7 @@ public class FunctionLever : MonoBehaviour
 {
     public Button lever, settingsButton, creditsButton, exitButton;
     public AudioSource leverSound, buttonClick;
+    
     public GameObject FadeOutAnim, creditsGO, settingsGO, bossSelectionGO, SettinsPanel1;
     public Animator leverAnim, creditsButtonAnim, settingsButtonAnim, exitButtonAnim, bossSelectionAnim;
     public AudioManager am;
@@ -44,6 +45,8 @@ public class FunctionLever : MonoBehaviour
     public Sprite[] leverSprites;
     public Slider leverSlider;
     public Image leverRenderer;
+    public AudioSource[] leverPulls;
+
 
     public Animator slotsAnim;
     public AudioSource jackpotSound;
@@ -86,31 +89,37 @@ public class FunctionLever : MonoBehaviour
         */
 
         //print("Loaded hasPressedInt: " + hasPressedInt);
+
+        unlockCursor();
     }
     
     private void Update()
     {
-        print(difficultychanged);
-
         if (creditsOn && Input.anyKeyDown) StartCoroutine(exitCredits());
         if (settingsOn && (Input.anyKeyDown) && (!EventSystem.current.IsPointerOverGameObject()) || (!EventSystem.current.IsPointerOverGameObject()) && Input.GetMouseButtonDown(0) || (Input.GetKeyDown(KeyCode.Escape))) StartCoroutine(exitSettings());
         if (ThawPanelOn && (Input.anyKeyDown) && (!EventSystem.current.IsPointerOverGameObject()) || (!EventSystem.current.IsPointerOverGameObject()) && Input.GetMouseButtonDown(0) || (Input.GetKeyDown(KeyCode.Escape))) StartCoroutine(exitThawPanel());
         if (bossSelectionOn && Input.anyKeyDown) StartCoroutine(exitBossSelection());
+
+        /*
         if (!bossSelectionOn)
         {
+            //print(combo[currentIndex]);
+            print(currentIndex);
             if (currentIndex < combo.Length)
             {
                 if (Input.GetKeyDown(combo[currentIndex]))
                 {
+                    print("presseed");
                     currentIndex++;
                 }
+                //else currentIndex = 0;
             }
             else
             {
-                print("combo");
                 bossSelection();
             }
-        }  
+        }
+        */
     }
 
     public void save()
@@ -141,13 +150,7 @@ public class FunctionLever : MonoBehaviour
         }
     }
 
-    public void StartGame()
-    {
-        lever.interactable = false;
-        leverAnim.Play("leverPull");
-        StartCoroutine(WaitAndLoadScene());
-        am.playAudio(leverSound);
-    }
+
 
     public void settings()
     {
@@ -242,6 +245,7 @@ public class FunctionLever : MonoBehaviour
     public void leverChange()
     {
         leverRenderer.sprite = leverSprites[(int)leverSlider.value];
+        am.playAudio(leverPulls[(int)leverSlider.value-1]);
     }
 
     public void leverRelease()
@@ -377,6 +381,7 @@ public class FunctionLever : MonoBehaviour
         FadeOutAnim.gameObject.SetActive(true);
         FadeOutAnim.GetComponent<Animator>().Play("sceneFadeOut");
         yield return new WaitForSeconds(1);
+        lockCursor();
         SceneManager.LoadScene(2);
     }
 
@@ -385,6 +390,7 @@ public class FunctionLever : MonoBehaviour
         FadeOutAnim.gameObject.SetActive(true);
         FadeOutAnim.GetComponent<Animator>().Play("sceneFadeOut");
         yield return new WaitForSeconds(1);
+        lockCursor();
         SceneManager.LoadScene(3);
     }
 
@@ -393,6 +399,7 @@ public class FunctionLever : MonoBehaviour
         FadeOutAnim.gameObject.SetActive(true);
         FadeOutAnim.GetComponent<Animator>().Play("sceneFadeOut");
         yield return new WaitForSeconds(1);
+        lockCursor();
         SceneManager.LoadScene(4);
     }
 
@@ -404,6 +411,7 @@ public class FunctionLever : MonoBehaviour
         FadeOutAnim.gameObject.SetActive(true);
         FadeOutAnim.GetComponent<Animator>().Play("sceneFadeOut");
         yield return new WaitForSeconds(2);
+        lockCursor();
         SceneManager.LoadScene(4);
         /*
         if (difficultychanged == false)
@@ -425,5 +433,17 @@ public class FunctionLever : MonoBehaviour
         AintWorkingPanel.SetActive(false);
         yield return new WaitForSeconds(0.5f);
         AintWorkingBoolean = false;
+    }
+
+    public void unlockCursor()
+    {
+        Cursor.visible = true; // Restores the cursor when leaving the scene
+        Cursor.lockState = CursorLockMode.None; // Freely movable again
+    }
+
+    public void lockCursor()
+    {
+        Cursor.visible = false; // Hides the cursor
+        Cursor.lockState = CursorLockMode.Locked;
     }
 }

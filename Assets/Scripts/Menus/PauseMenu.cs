@@ -30,6 +30,7 @@ public class PauseMenu : MonoBehaviour
 
     private IEnumerator pauseGame()
     {
+        unlockCursor();
         running = true;
         pausePanel.SetActive(true);
         pauseAnim.Play("pauseOn");
@@ -41,6 +42,7 @@ public class PauseMenu : MonoBehaviour
 
     private IEnumerator unPauseGame()
     {
+        lockCursor();
         running = true;
         gamePaused = false;
         Time.timeScale = 1.0f;
@@ -53,6 +55,7 @@ public class PauseMenu : MonoBehaviour
     public void BackToMenu()
     {
         Time.timeScale = 1.0f;
+        unlockCursor();
         SceneManager.LoadScene(3);
     }
 
@@ -64,5 +67,17 @@ public class PauseMenu : MonoBehaviour
     public void BuffedReload()
     {
         SceneManager.LoadScene(8);
+    }
+
+    public void unlockCursor()
+    {
+        Cursor.visible = true; // Restores the cursor when leaving the scene
+        Cursor.lockState = CursorLockMode.None; // Freely movable again
+    }
+
+    public void lockCursor()
+    {
+        Cursor.visible = false; // Hides the cursor
+        Cursor.lockState = CursorLockMode.Locked;
     }
 }

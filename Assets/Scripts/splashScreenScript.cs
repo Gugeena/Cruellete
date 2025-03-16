@@ -14,6 +14,7 @@ public class splashScreenScript : MonoBehaviour
     private void Start()
     {
         isRunning = false;
+        unlockCursor();
     }
     void Update()
     {
@@ -36,5 +37,17 @@ public class splashScreenScript : MonoBehaviour
         yield return new WaitForSeconds(0.65f);
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void unlockCursor()
+    {
+        Cursor.visible = true; // Restores the cursor when leaving the scene
+        Cursor.lockState = CursorLockMode.None; // Freely movable again
+    }
+
+    public void lockCursor()
+    {
+        Cursor.visible = false; // Hides the cursor
+        Cursor.lockState = CursorLockMode.Locked;
     }
 }

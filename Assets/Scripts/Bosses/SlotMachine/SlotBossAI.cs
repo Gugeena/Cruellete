@@ -31,7 +31,7 @@ public class SlotBossAI : MonoBehaviour
 
     float hpCurVel = 0f;
     public UnityEngine.UI.Slider hpSlider;
-    float hp;
+    public float hp;
 
     public rouletteScript rs;
     
@@ -58,6 +58,8 @@ public class SlotBossAI : MonoBehaviour
     private double nextEventTime;
 
     private Scene currentScene;
+
+    public GameObject diceWall; 
 
     // Start is called before the first frame update
     void Start()
@@ -104,8 +106,6 @@ public class SlotBossAI : MonoBehaviour
     {
         handleHP();
         handleMusic();
-
-        print(hp);
     }
 
     void handleMusic()
@@ -172,6 +172,8 @@ public class SlotBossAI : MonoBehaviour
             else { ChooseAttack(); return; }
         }
         else if (hp <= 25) StartCoroutine(jackpotAttack());
+
+        
     }
 
     private IEnumerator deathCRT()
@@ -358,6 +360,7 @@ public class SlotBossAI : MonoBehaviour
         am.playAudio(audioSources[2]);      
         anim.SetBool("isShaking", true);
         jackpotPlatformSpawner.SetActive(true);
+        MovingPlatformScript.speedX = 0.35f;
         yield return new WaitForSeconds(1.5f);
         am.playAudio(audioSources[6]);
         for (int i = 0; i <= 5; ++i)
@@ -429,7 +432,7 @@ public class SlotBossAI : MonoBehaviour
         if (collision.CompareTag("playerSlash") && !isInvulnerable)
         {
             am.playAudio(audioSources[0]);
-            hp --;
+            hp -= 1;
             anim.Play("Damage");
         }
 

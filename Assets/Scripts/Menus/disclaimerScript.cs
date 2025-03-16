@@ -10,7 +10,10 @@ public class disclaimerScript : MonoBehaviour
 
     private void Start()
     {
+        UnityEngine.Cursor.visible = false; // Hides the cursor
+        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         StartCoroutine(warning());
+        
     }
     private IEnumerator warning()
     {

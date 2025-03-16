@@ -18,10 +18,8 @@ public class ShineAnimationScript : MonoBehaviour
     private IEnumerator RedAnimationCoroutine()
     {
         animator.SetBool("PlayClip", true);
-        Debug.Log("PlayClip is true");
         yield return new WaitForSeconds(3f);
         animator.SetBool("PlayClip", false);
-        Debug.Log("PlayClip is false");
 
         yield return new WaitForSeconds(0.1f); 
 

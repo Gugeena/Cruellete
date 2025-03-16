@@ -446,6 +446,7 @@ GameObject:
   - component: {fileID: 71219441}
   - component: {fileID: 71219443}
   - component: {fileID: 71219442}
+  - component: {fileID: 71219444}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -563,6 +564,22 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 71219439}
   m_Enabled: 1
+--- !u!114 &71219444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71219439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97037133f97a6c043b426ad30643f1cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bossName: Plinko
+  bossAssetKey: plinkomini
+  bossDescription: Plinko Boss
+  inMainMenu: 0
 --- !u!1 &131361581
 GameObject:
   m_ObjectHideFlags: 0
@@ -6981,7 +6998,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 504
   m_Sprite: {fileID: 21300000, guid: f90d3af681cea2046b3d47a1b525fc26, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -8726,7 +8743,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 504
   m_Sprite: {fileID: 21300000, guid: f90d3af681cea2046b3d47a1b525fc26, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

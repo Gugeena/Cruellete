@@ -15,8 +15,11 @@ public class EndScreenScript : MonoBehaviour
 
     Vector3 position = new Vector3(-3.2832F, -6.92F, 0);
 
+
     int counterState = 0; //0 - DeathCounter, 1 - TimeCounter, 2 - HitCounter, 3 - displayRank
     int minutes, seconds;
+
+    public AudioSource countingSound;
     void Start()
     {
         StartCoroutine(deathCount(MovementScript.DeathCount));
@@ -29,23 +32,27 @@ public class EndScreenScript : MonoBehaviour
         Time.text = "0:00";
         Hit.text = "0";
 
+
+        Cursor.visible = true; // Restores the cursor when leaving the scene
+        Cursor.lockState = CursorLockMode.None; // Freely movable again
     }
 
     void Update()
     {
-        print(counterState);
         if (Input.anyKeyDown)
         {
             counterState++;
         }
-        //Hit.text = "" + MovementScript.Hit;
-        //Time.text = string.Format("{0}:{1:00}", minutes, seconds);
+
+
     }
 
     private IEnumerator deathCount(int toCount)
     {
+        
         int count = 0;
         yield return new WaitForSeconds(0.5f);
+        countingSound.Play();
         while (count < toCount && counterState == 0)
         {
             count++;
@@ -54,16 +61,18 @@ public class EndScreenScript : MonoBehaviour
         }
         if (counterState == 0) counterState++;
         death.text = "" + toCount;
+        countingSound.Stop();
         StartCoroutine(timeCount(minutes, seconds));
-
     }
 
     private IEnumerator timeCount(int countMin, int countSec)
     {
         int min = 0;
         int sec = 0;
-        while(min < countMin && counterState == 1)
+        countingSound.Play();
+        while (min < countMin && counterState == 1)
         {
+
             sec++;
             if(sec >= 60)
             {
@@ -80,23 +89,25 @@ public class EndScreenScript : MonoBehaviour
         }
         if(counterState == 1) counterState++;
         Time.text = string.Format("{0}:{1:00}", countMin, countSec);
+        countingSound.Stop();
         StartCoroutine(hitCount(MovementScript.Hit));
-
     }
 
     private IEnumerator hitCount(int toCount)
     {
+        
         int count = 0;
-            yield return new WaitForSeconds(0.5f);
-            while (count < toCount && counterState == 2)
+        yield return new WaitForSeconds(0.5f);
+        countingSound.Play();
+        while (count < toCount && counterState == 2)
             {
                 count++;
                 Hit.text = "" + count;
                 yield return new WaitForSeconds(0.035f);
             }
         Hit.text = "" + toCount;
+        countingSound.Stop();
         ranker();
-
     }
 
     public void ranker()

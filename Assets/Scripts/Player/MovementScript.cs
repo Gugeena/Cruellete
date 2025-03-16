@@ -82,6 +82,8 @@ public class MovementScript : MonoBehaviour
     void Start()
     {
         activeScene = SceneManager.GetActiveScene();
+        lockCursor();
+
 
         StartCoroutine(UpdateTime());
 
@@ -113,9 +115,6 @@ public class MovementScript : MonoBehaviour
 
     void Update()
     {
-        print("grounded: " + isGrounded);
-        print("Attack cooldown: " + isAttackCooldown);
-        print("IsHeavyAttackign: " + IsHeavyAttacking);
 
         if (activeScene.name == "MainMenu")
         {
@@ -165,7 +164,7 @@ public class MovementScript : MonoBehaviour
     {
         //Horizontal
         float x = Input.GetAxisRaw("Horizontal");
-        if (!isDashing) rb.velocity = new Vector2(x * speed, rb.velocity.y);
+        if (!isDashing && !IsHeavyAttacking) rb.velocity = new Vector2(x * speed, rb.velocity.y);
 
         if (x != 0) anim.SetInteger("state", 1);
         else anim.SetInteger("state", 0);
@@ -176,12 +175,6 @@ public class MovementScript : MonoBehaviour
             rb.velocity = new Vector2(x * speed + platformRB.velocity.x, rb.velocity.y);
         }
         
-
-        if (IsHeavyAttacking && isGrounded)
-        {
-            rb.velocity = Vector3.zero;
-            return;
-        }
 
         //Flipping the player and setting the direction variable
         if (x < 0 && transform.localScale.x > 0 && !isDashing) {
@@ -284,7 +277,7 @@ public class MovementScript : MonoBehaviour
             anim.Play("HeavyAttack");
 
             float attackTime = 0.75f;
-            float elapsed = 0f;
+//         float elapsed = 0f;
 
             yield return new WaitForSeconds(attackTime);
             if (!IsHeavyAttacking) yield break;
@@ -401,6 +394,7 @@ public class MovementScript : MonoBehaviour
         yield return new WaitForSecondsRealtime(1.2f);
         bossDeactivation();
         hasgoneforsalt = true;
+        unlockCursor();
         yield return new WaitForSecondsRealtime(0.2f);
         DeathButton.SetActive(true);
         DeathButton1.SetActive(true);
@@ -583,5 +577,17 @@ public class MovementScript : MonoBehaviour
 
             TimeP++;
         }
+    }
+
+    public void unlockCursor() 
+    {
+        Cursor.visible = true; // Restores the cursor when leaving the scene
+        Cursor.lockState = CursorLockMode.None; // Freely movable again
+    }
+
+    public void lockCursor()
+    {
+        Cursor.visible = false; // Hides the cursor
+        Cursor.lockState = CursorLockMode.Locked;
     }
 }

@@ -210,7 +210,6 @@ public class KeyBindManager : MonoBehaviour
         AdjustInputFieldWidth(inputfieldJump, jumpDisplay);
         AdjustInputFieldWidth(inputfieldHeavy, HeavyDisplay);
 
-        Debug.Log("Key bindings loaded: Dash[" + dashKey + "] Attack[" + attackKey + "] Jump[" + jumpKey + "] + [" + heavyKey + "]");
     }
 
     private bool IsKeyAlreadyAssigned(KeyCode key)
@@ -291,7 +290,61 @@ public class KeyBindManager : MonoBehaviour
             case KeyCode.Mouse1: return "RMB";
             case KeyCode.Mouse2: return "MMB";
 
-            default: return "Unknown";
+            case KeyCode.Delete: return "Del";
+            case KeyCode.Insert: return "Insert";
+            case KeyCode.Home: return "Home";
+            case KeyCode.End: return "End";
+            case KeyCode.PageUp: return "PgUp";
+            case KeyCode.PageDown: return "PgDn";
+
+
+            case KeyCode.CapsLock: return "Caps";
+            case KeyCode.ScrollLock: return "ScrLk";
+            case KeyCode.Numlock: return "NumLk";
+
+            case KeyCode.Print: return "PrtSc";
+            case KeyCode.Pause: return "Pause";
+
+            case KeyCode.LeftWindows: return "LWin";
+            case KeyCode.RightWindows: return "RWin";
+
+            case KeyCode.Keypad0: return "Num0";
+            case KeyCode.Keypad1: return "Num1";
+            case KeyCode.Keypad2: return "Num2";
+            case KeyCode.Keypad3: return "Num3";
+            case KeyCode.Keypad4: return "Num4";
+            case KeyCode.Keypad5: return "Num5";
+            case KeyCode.Keypad6: return "Num6";
+            case KeyCode.Keypad7: return "Num7";
+            case KeyCode.Keypad8: return "Num8";
+            case KeyCode.Keypad9: return "Num9";
+
+            case KeyCode.KeypadPeriod: return "Num.";
+            case KeyCode.KeypadDivide: return "Num/";
+            case KeyCode.KeypadMultiply: return "Num*";
+            case KeyCode.KeypadMinus: return "Num-";
+            case KeyCode.KeypadPlus: return "Num+";
+            case KeyCode.KeypadEnter: return "Enter";
+            case KeyCode.KeypadEquals: return "Num=";
+
+            case KeyCode.LeftBracket: return "LBrk";
+            case KeyCode.RightBracket: return "RBrk";
+            case KeyCode.Semicolon: return "Semi";
+            case KeyCode.Quote: return "Quote";
+            case KeyCode.Comma: return "Comma";
+            case KeyCode.Period: return "Dot";
+            case KeyCode.Slash: return "Slash";
+            case KeyCode.Backslash: return "Bsla";
+            case KeyCode.Tilde: return "Tlde";
+            case KeyCode.BackQuote: return "Bqte";
+            case KeyCode.Equals: return "Equal";
+            case KeyCode.Minus: return "Minus";
+
+            case KeyCode.AltGr: return "AltG";
+            case KeyCode.Help: return "Help";
+
+
+            default: return "???";
         }
     }
 
