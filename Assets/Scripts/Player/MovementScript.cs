@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Experimental.AI;
 using UnityEngine.SceneManagement;
 
 public class MovementScript : MonoBehaviour
@@ -164,16 +165,16 @@ public class MovementScript : MonoBehaviour
     {
         //Horizontal
         float x = Input.GetAxisRaw("Horizontal");
-        if (!isDashing && !IsHeavyAttacking) rb.velocity = new Vector2(x * speed, rb.velocity.y);
+        if ((!isDashing && !IsHeavyAttacking && !onMovePlat) || (IsHeavyAttacking && !isGrounded)) rb.velocity = new Vector2(x * speed, rb.velocity.y);
+        else if (onMovePlat && !isDashing && !IsHeavyAttacking)
+        {
+            rb.velocity = new Vector2(x * speed + platformRB.velocity.x, rb.velocity.y);
+        }
 
         if (x != 0) anim.SetInteger("state", 1);
         else anim.SetInteger("state", 0);
 
-        if (!isDashing && !onMovePlat) rb.velocity = new Vector2(x * speed, rb.velocity.y);
-        else if (onMovePlat && !isDashing)
-        {
-            rb.velocity = new Vector2(x * speed + platformRB.velocity.x, rb.velocity.y);
-        }
+
         
 
         //Flipping the player and setting the direction variable
@@ -271,7 +272,6 @@ public class MovementScript : MonoBehaviour
         if (!isGrounded)
         {
             isAttackCooldown = true;
-            print("Heavy Attack Started");
             IsHeavyAttacking = true;
             //anim.SetBool("isHeavyAttacking", true);
             anim.Play("HeavyAttack");
@@ -289,13 +289,12 @@ public class MovementScript : MonoBehaviour
             HeavyAttackGO.SetActive(false);
             IsHeavyAttacking = false;
             isAttackCooldown = false;
-            print("Heavy Attack Ended");
         }
         else
         {
             isAttackCooldown = true;
-            print("Light Heavy Attack Started");
             IsHeavyAttacking = true;
+            rb.velocity = new Vector2(0, rb.velocity.y);
             //anim.SetBool("isLightHeavyAttacking", true);
             anim.Play("LightHeavyAttack");
 
@@ -315,7 +314,6 @@ public class MovementScript : MonoBehaviour
             yield return new WaitForSeconds(0.18f); 
             IsHeavyAttacking = false;
             isAttackCooldown = false;
-            print("Heavy Attack Ended");
         }
     }
 

@@ -182,7 +182,7 @@ public class SlotBossAI : MonoBehaviour
         dead = true;
         am.stopAudio(audioSources[12]);
         am.playAudio(audioSources[8]);
-        MovingPlatform.speedX = MovingPlatform.speedY = 0;
+        MovingPlatformScript.speedX = MovingPlatformScript.speedY = 0;
         fStuffScript.isEnabled = false;
         fStuffScript.enabled = false;
         yield return new WaitForSeconds(2.5f);
