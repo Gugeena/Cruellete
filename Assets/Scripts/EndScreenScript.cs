@@ -119,25 +119,17 @@ public class EndScreenScript : MonoBehaviour
                 Instantiate(P, position, Quaternion.identity);
                 break;
             }
-            else if (MovementScript.DeathCount <= 2 &&
-                     MovementScript.Hit >= (MovementScript.DeathCount * 5 - 4) &&
-                     MovementScript.Hit <= (MovementScript.DeathCount * 5 + 4) &&
-                     MovementScript.TimeP < 600)
+            else if (MovementScript.DeathCount <= 2 && MovementScript.TimeP < 450)
             {
                 Instantiate(S, position, Quaternion.identity);
                 break;
             }
-            else if (MovementScript.DeathCount <= 10 &&
-                     MovementScript.Hit >= (MovementScript.DeathCount * 5 - 4) &&
-                     MovementScript.Hit <= (MovementScript.DeathCount * 5 + 4) &&
-                     MovementScript.TimeP < 900)
+            else if (MovementScript.DeathCount <= 4 && MovementScript.TimeP < 720)
             {
                 Instantiate(A, position, Quaternion.identity);
                 break;
             }
-            else if (MovementScript.DeathCount > 10 &&
-                     MovementScript.Hit > (MovementScript.DeathCount * 5 + 4) &&
-                     MovementScript.TimeP < 1200)
+            else if (MovementScript.DeathCount <= 7 && MovementScript.TimeP < 1200)
             {
                 Instantiate(B, position, Quaternion.identity);
                 break;
