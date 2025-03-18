@@ -277,11 +277,10 @@ public class MovementScript : MonoBehaviour
             anim.Play("HeavyAttack");
 
             float attackTime = 0.75f;
-//         float elapsed = 0f;
 
             yield return new WaitForSeconds(attackTime);
             if (!IsHeavyAttacking) yield break;
-
+            //am.playAudio(audioSources[7]);
             HeavyAttackGO.SetActive(true);
             yield return new WaitForSeconds(0.12f);
 
@@ -299,11 +298,10 @@ public class MovementScript : MonoBehaviour
             anim.Play("LightHeavyAttack");
 
             float attackTime = 0.45f;
-            float elapsed = 0f;
 
             yield return new WaitForSeconds(attackTime);
             if (!IsHeavyAttacking) yield break;
-
+            //am.playAudio(audioSources[7]);
             //LightHeavyAttackGO.SetActive(true);
             HeavyAttackGO.SetActive(true);
             yield return new WaitForSeconds(0.12f);
