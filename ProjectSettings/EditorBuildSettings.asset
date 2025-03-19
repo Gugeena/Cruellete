@@ -21,13 +21,13 @@ EditorBuildSettings:
     path: Assets/Scenes/ThrowAways/MainMenuOld.unity
     guid: 109ca552235e924459167df7b87c2c08
   - enabled: 1
-    path: Assets/Scenes/Bosses/DiceBOSSBackup.unity
+    path: Assets/Scenes/Bosses/Act I/DiceBOSSBackup.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/Bosses/PlinkoBoss.unity
+    path: Assets/Scenes/Bosses/Act I/PlinkoBoss.unity
     guid: 0175996bbe904ac438eea4281e36e11d
   - enabled: 1
-    path: Assets/Scenes/Bosses/BossSlotMachine.unity
+    path: Assets/Scenes/Bosses/Act I/BossSlotMachine.unity
     guid: a138fa3adefc5e948b8f585ef525e45b
   - enabled: 1
     path: Assets/Scenes/Other/EndScreen.unity
