@@ -7,7 +7,8 @@ public class MonteExplosiveCardScript : MonoBehaviour
     Rigidbody2D rb;
     public float torqueMultiplier;
     public GameObject deathParticles;
-    public GameObject Explosion;
+    [SerializeField]
+    private GameObject Explosion;
 
     // Start is called before the first frame update
     void Start()
@@ -41,8 +42,9 @@ public class MonteExplosiveCardScript : MonoBehaviour
     {
         Instantiate(deathParticles, transform.position, transform.rotation);
         Instantiate(Explosion, transform.position, transform.rotation);
-        GetComponent<SpriteRenderer>().enabled = false;
-        yield return new WaitForSeconds(0.4f);
+        //GetComponent<SpriteRenderer>().enabled = false;
+        //yield return new WaitForSeconds(0.4f);
+        yield return null;
         Destroy(gameObject);
     }
 }
