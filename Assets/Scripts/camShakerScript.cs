@@ -25,6 +25,7 @@ public class camShakerScript : MonoBehaviour
         cbmcp.m_AmplitudeGain = amplitude;
         cbmcp.m_FrequencyGain = frequency;
 
+        print("Shaking!");
         cam.enabled = true; 
         yield return new WaitForSeconds(time);
         cam.enabled = false;
@@ -34,7 +35,7 @@ public class camShakerScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (onCollide) {
+        if (onCollide && collision.gameObject.layer != 9) {
             StartCoroutine(shake());
         }
     }

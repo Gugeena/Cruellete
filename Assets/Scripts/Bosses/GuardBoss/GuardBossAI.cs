@@ -1,6 +1,7 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO.IsolatedStorage;
 using UnityEngine;
 
 public class GuardBossAI : MonoBehaviour
@@ -25,18 +26,77 @@ public class GuardBossAI : MonoBehaviour
     [SerializeField]
     private float batIdleTime, attackTime;
 
+    [Header("TopHandAttack2")]
+    [SerializeField]
+    private GameObject[] hands;
+    [SerializeField]
+    private Animator handsAnim;
+
+    [Header("BatsAttack")]
+    [SerializeField]
+    private ObjectSpawner topBatSpawner;
+    [SerializeField]
+    private ObjectSpawner botBatSpawner;
+    [SerializeField]
+    private GameObject topBatParent, botBatParent;
+
     [Header("Misc")]
     [SerializeField]
     private GameObject shakeCam;
     private GameObject player;
+    private bool spinQueued, isInvulnerable;
+    [SerializeField]
+    private rouletteScript rs;
+    [SerializeField]
+    private Sprite[] toastSprites;
+    [SerializeField]
+    private float idleTime;
+    private camShakerScript cShakeS;
+    private int lastAttack, nextAttack, repeatCount, attackCounter;
 
     private void Start()
     {
-        //StartCoroutine(handFallAttack(Random.Range(0, 2) == 0));
         player = GameObject.Find("Player");
-        StartCoroutine(circleShootAttack());
+        cShakeS = GetComponent<camShakerScript>();
+        //chooseAttack();
+        StartCoroutine(batsAttack());
     }
 
+    void chooseAttack()
+    {
+        if (player == null)
+        {
+            return;
+        }
+
+        if (spinQueued)
+        {
+            rs.StartCoroutine(rs.spinCRT(toastSprites, 4));
+            spinQueued = false;
+            isInvulnerable = true;
+        }
+        else
+        {
+         
+            lastAttack = nextAttack;
+            nextAttack = Random.Range(0, 2);
+            if (nextAttack == lastAttack)
+            {
+                repeatCount++;
+                print("repeat!");
+            }
+            else repeatCount = 0;
+            if (repeatCount >= 3) { 
+                chooseAttack();
+                return;
+            }
+            if (attackCounter % 7 == 0 && attackCounter != 0) StartCoroutine(circleShootAttack());
+            else if (nextAttack == 0) StartCoroutine(handFallAttack(Random.Range(0, 2) == 0));
+            else if (nextAttack == 1) StartCoroutine(topHandSmashAttack());
+
+            attackCounter++;
+        }
+    }
 
     private IEnumerator handFallAttack(bool rightToLeft)
     {
@@ -79,31 +139,49 @@ public class GuardBossAI : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, 65);
         yield return new WaitForSeconds(1f);
         Destroy(hand);
-
+        chooseAttack();
     }
 
     private IEnumerator circleShootAttack()
     {
         shooter.SetActive(true);
-        shooter.GetComponent<Animator>().Play("ShooterComeDown");
+        shooter.transform.GetComponentInParent<Animator>().Play("ShooterComeDown");
         yield return new WaitForSeconds(2.5f);
-        shooter.GetComponent<ShooterScript>().enabled = true;
+        shooter.GetComponent<ShooterScript>().startShooting();
         yield return new WaitForSeconds(2f);
-        float attackTime = Time.time + this.attackTime;
+        float attackTime = Time.time + this.attackTime + Random.Range(0.1f, 2.5f);
         while (Time.time < attackTime) {
             Vector2 pos = new Vector2(player.transform.position.x, popOut.transform.position.y);
             GameObject batObj = Instantiate(bat, pos, Quaternion.identity, popOut.gameObject.transform);
-            Destroy(batObj, 4);
+            Destroy(batObj, 3.4f);
             popOut.Play("batPopOut");  
             yield return new WaitForSeconds(batIdleTime);
-            
         }
+        shooter.GetComponent<ShooterScript>().stopShooting();
+        shooter.GetComponentInParent<Animator>().Play("ShooterGoUp");
+        chooseAttack();
+    }
+
+    private IEnumerator topHandSmashAttack()
+    {
+        hands[Random.Range(0, hands.Length)].SetActive(false);
+        handsAnim.Play("topHandSmash");
+        yield return new WaitForSeconds(2.45f);
+        StartCoroutine(cShakeS.shake());
+        yield return new WaitForSeconds(3f);
+        foreach (GameObject h in hands)
+        {
+            h.SetActive(true);
+        } 
+        chooseAttack();
+    }
+
+    private IEnumerator batsAttack() {
+        topBatSpawner.startSpawning();
+        botBatSpawner.startSpawning();
+        yield return new WaitForSeconds(7);
+        topBatParent.GetComponent<Animator>().Play("topBatsMove");
 
     }
-    private IEnumerator screenShake()
-    {
-        shakeCam.SetActive(true);
-        yield return new WaitForSeconds(0.15f);
-        shakeCam.SetActive(false);
-    }
+
 }

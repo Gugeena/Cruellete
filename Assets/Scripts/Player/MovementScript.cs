@@ -57,7 +57,6 @@ public class MovementScript : MonoBehaviour
     public static KeyCode HeavyKey1;
 
     Vector2 platformVelocity = Vector2.zero;
-    GameObject currentPlatform = null;
 
     public GameObject DeathText, DeathButton, DeathButton1;
 
@@ -255,7 +254,6 @@ public class MovementScript : MonoBehaviour
                 anim.Play("SideSlash");
                 StartCoroutine(slashAttack(SideAttackGO));
             }
-            print("y: " + y);
         }
 
         if(!isAttackCooldown && !isAttacking && !isDashing && !IsHeavyAttacking && !isFatigued)

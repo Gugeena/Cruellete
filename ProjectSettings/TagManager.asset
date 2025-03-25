@@ -21,6 +21,7 @@ TagManager:
   - HeavyAttack
   - LHAttack
   - Explosion
+  - guardBat
   layers:
   - Default
   - TransparentFX

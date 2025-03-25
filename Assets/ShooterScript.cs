@@ -16,10 +16,6 @@ public class ShooterScript : MonoBehaviour
         transform.Rotate(0, 0, rotationSpeed);
     }
 
-    private void Start()
-    {
-        startShooting();
-    }
 
     public void startShooting()
     {
@@ -28,7 +24,8 @@ public class ShooterScript : MonoBehaviour
 
     public void stopShooting()
     {
-
+        StopAllCoroutines();
+        StopCoroutine(shooting());
     }
 
     private IEnumerator shooting()
