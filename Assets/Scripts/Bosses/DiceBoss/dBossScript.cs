@@ -69,6 +69,7 @@ public class dBossScript : MonoBehaviour
 
     private bool isDoubleDownActive = false;
 
+    public PhysicsMaterial2D someMaterial;
     void Start()
     {
         Currentscene = SceneManager.GetActiveScene().name;
@@ -377,6 +378,10 @@ public class dBossScript : MonoBehaviour
     private IEnumerator deathCRT()
     {
         movementScript.isInvulnerable = true;
+        var collider = GetComponent<Collider2D>();
+        var rb2D = GetComponent<Rigidbody2D>();
+        rb2D.sharedMaterial = someMaterial;
+        collider.sharedMaterial = someMaterial;
         dead = true;
         audioManager.stopAudio(sounds[1]);
         audioManager.stopAudio(sounds[0]);

@@ -21,7 +21,12 @@ TagManager:
   - HeavyAttack
   - LHAttack
   - Explosion
+<<<<<<< Updated upstream
   - guardBat
+=======
+  - HeartCard
+  - Monte
+>>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX
@@ -33,9 +38,9 @@ TagManager:
   - Boss
   - SummonsWall
   - Player
-  - 
-  - 
-  - 
+  - HeartCard
+  - Monte
+  - MovingPlatform
   - 
   - 
   - 

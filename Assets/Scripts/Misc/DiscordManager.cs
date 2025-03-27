@@ -44,7 +44,7 @@ public class DiscordManager : MonoBehaviour
         };
         activity.Assets = activityAssets;
 
-        activityManager.UpdateActivity(activity,(res) =>
+        activityManager.UpdateActivity(activity,(res) =>    
         {
             if (res == Discord.Result.Ok)
             {

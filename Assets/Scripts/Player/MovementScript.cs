@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -28,7 +29,7 @@ public class MovementScript : MonoBehaviour
     bool isAttacking, isAttackCooldown;
     public float attackCooldown = 0.22f;
 
-    int hp = 5;
+    public int hp = 5;
     public Animator[] HPanims;
 
 
@@ -57,6 +58,10 @@ public class MovementScript : MonoBehaviour
     public static KeyCode HeavyKey1;
 
     Vector2 platformVelocity = Vector2.zero;
+<<<<<<< Updated upstream
+=======
+    //GameObject currentPlatform = null;
+>>>>>>> Stashed changes
 
     public GameObject DeathText, DeathButton, DeathButton1;
 
@@ -79,8 +84,21 @@ public class MovementScript : MonoBehaviour
     bool onMovePlat;
     Rigidbody2D platformRB;
 
+    public GameObject HeartCard;
+    private bool isLifeGaining = false;
+    public int hasCaughtCard = 0;
+    public bool lifeStealended;
+
+    [SerializeField]
+    public MonteScript monteScript;
+    public int LifeStealCount = 0;
+
     void Start()
     {
+        if(lifeStealended && hasCaughtCard != 1)
+        {
+            hp--;
+        }
         activeScene = SceneManager.GetActiveScene();
         lockCursor();
 
@@ -214,7 +232,7 @@ public class MovementScript : MonoBehaviour
 
     void Jump()
     {
-        if (!isDashing)
+        if (!isDashing && !IsHeavyAttacking)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             isGrounded = false;
@@ -263,7 +281,6 @@ public class MovementScript : MonoBehaviour
                 StartCoroutine(HeavyAttack());
             }
         }
-
     }
     public IEnumerator HeavyAttack()
     {
@@ -451,9 +468,15 @@ public class MovementScript : MonoBehaviour
         }
 
 
-        if ((collision.gameObject.layer == 7 || collision.gameObject.layer == 6 || collision.gameObject.CompareTag("Enemy")))
+        if ((collision.gameObject.layer == 7 || collision.gameObject.layer == 6 || collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Monte")))
         {
             StartCoroutine(damage());
+            /*
+            if(activeScene.name == "MonteBoss")
+            {
+                monteScript.gameObject.layer = LayerMask.NameToLayer("Monte");
+            }
+            */
         }
         if (collision.gameObject.CompareTag("damageFloor"))
         {
@@ -461,6 +484,12 @@ public class MovementScript : MonoBehaviour
             Jump();
             jumpStored = false;
             anim.SetBool("airborne", true);
+        }
+
+        if (collision.gameObject.CompareTag("HeartCard"))
+        {
+            if (hp > 1) hp++;
+            else if (hp == 1) hasCaughtCard++;
         }
 
         //if (collision.gameObject.CompareTag("roulettePlatform"))
@@ -583,5 +612,64 @@ public class MovementScript : MonoBehaviour
     {
         Cursor.visible = false; // Hides the cursor
         Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    public IEnumerator LifeSteal()
+    {
+        if (hp > 1)
+        {
+            //yield return new WaitForSeconds(5);
+            if (am != null) am.playAudio(audioSources[3]);
+            anim.Play("Damage");
+            Time.timeScale = 0;
+            yield return new WaitForSecondsRealtime(0.1f);
+            Time.timeScale = 1;
+
+            for (int i = hp; i > 1; i--)
+            {
+                hp--;
+                HPanims[i - 1].Play("ui_loseHP");
+                Instantiate(HeartCard, this.transform.position, Quaternion.identity);
+            }
+            yield return new WaitForSeconds(5f);
+            monteScript.gameObject.layer = LayerMask.NameToLayer("Boss");
+            monteScript.spriteRenderer.enabled = true;
+            monteScript.LifeStealQueued = false;
+            monteScript.BetQueued = true;
+            LifeStealCount++;
+        }
+        else if (hp == 1)
+        {
+            lifeStealended = false;
+            if (am != null) am.playAudio(audioSources[3]);
+            anim.Play("Damage");
+            Time.timeScale = 0;
+            yield return new WaitForSecondsRealtime(0.1f);
+            Time.timeScale = 1;
+            Instantiate(HeartCard, this.transform.position, Quaternion.identity);
+            yield return new WaitForSeconds(2f);
+            monteScript.gameObject.layer = LayerMask.NameToLayer("Boss");
+            monteScript.spriteRenderer.enabled = true;
+            lifeStealended = true;
+            monteScript.LifeStealQueued = false;
+            LifeStealCount++;
+            monteScript.BetQueued = true;
+        }
+    }
+
+    public IEnumerator LifeGain()
+    {
+        if (isLifeGaining) yield break;
+
+        isLifeGaining = true;
+        //if (am != null) am.playAudio(audioSources[X]);
+        //anim.Play("HealthGain");
+        Time.timeScale = 1.2f;
+        yield return new WaitForSecondsRealtime(0.1f);
+        Time.timeScale = 1;
+        hp++;
+        //HPanims[hp + 4].Play("ui_gainHP");
+        print(hp);
+        isLifeGaining = false;
     }
 }
