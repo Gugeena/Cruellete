@@ -189,7 +189,7 @@ public class MovementScript : MonoBehaviour
         }
 
         //Jumping
-        if (Input.GetKeyDown(jumpKey1) && isGrounded)
+        if (Input.GetKeyDown(jumpKey1) && isGrounded && !IsHeavyAttacking)
         {
             Jump();
         }

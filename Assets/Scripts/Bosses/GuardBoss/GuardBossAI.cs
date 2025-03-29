@@ -64,6 +64,7 @@ public class GuardBossAI : MonoBehaviour
 
     void chooseAttack()
     {
+        
         if (player == null)
         {
             return;

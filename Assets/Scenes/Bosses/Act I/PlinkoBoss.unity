@@ -6523,8 +6523,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adf60e1ad9e898a419dbf11af8b8ec24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movingPlatform: {fileID: 3226201776465544191, guid: 7db9340c1ea6339499a88e29a4177855, type: 3}
+  obj: {fileID: 3226201776465544191, guid: 7db9340c1ea6339499a88e29a4177855, type: 3}
   time: 2.5
+  killTime: 0
+  onAwake: 1
+  killSelf: 0
+  parent: {fileID: 0}
 --- !u!4 &509927467
 Transform:
   m_ObjectHideFlags: 0

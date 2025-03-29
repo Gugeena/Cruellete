@@ -10,5 +10,6 @@ public class GuardBulletScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rb.AddForce(150 * transform.right);
         Destroy(gameObject, 7);
+
     }
 }
